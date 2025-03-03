@@ -12,10 +12,10 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "EverAfterDB.db";
-    private static final int DATABASE_VERSION = 1;
-
+    private static final int DATABASE_VERSION = 2;
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
     }
 
     @Override
@@ -35,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createUsersTable);
 
         String createSubjectListsTable = "CREATE TABLE subject_lists (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "user_id INTEGER, " +
                 "list_name TEXT, " +
                 "description TEXT)";
         db.execSQL(createSubjectListsTable);
