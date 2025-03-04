@@ -27,13 +27,6 @@
             android:padding="8dp"
             android:inputType="date" />
 
-        <!-- New Spinner to select a subject list -->
-        <Spinner
-            android:id="@+id/spinnerSubjectLists"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
-
         <Button
             android:id="@+id/buttonAddEvent"
             android:layout_width="match_parent"

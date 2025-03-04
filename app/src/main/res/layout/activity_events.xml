@@ -6,9 +6,17 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- A simple ListView to display events for the selected subject list -->
+    <!-- ListView to display events of the selected subject list -->
     <ListView
         android:id="@+id/listViewEvents"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Button to add a new event -->
+    <Button
+        android:id="@+id/buttonAddEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add New Event" />
 </LinearLayout>

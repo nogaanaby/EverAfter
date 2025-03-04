@@ -1,12 +1,14 @@
 package com.example.everafter;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 public class EventsActivity extends AppCompatActivity {
 
     private ListView listViewEvents;
+    private Button buttonAddEvent;
     private DatabaseHelper dbHelper;
     private int subjectListId;
 
@@ -30,6 +33,7 @@ public class EventsActivity extends AppCompatActivity {
         }
 
         listViewEvents = findViewById(R.id.listViewEvents);
+        buttonAddEvent = findViewById(R.id.buttonAddEvent);
         dbHelper = new DatabaseHelper(this);
 
         // Retrieve the subject list ID passed from HomeActivity
@@ -37,6 +41,14 @@ public class EventsActivity extends AppCompatActivity {
         Log.d("EventsActivity", "Subject List ID: " + subjectListId);
 
         loadEvents();
+
+        // When "Add New Event" is clicked, open AddEventActivity
+        buttonAddEvent.setOnClickListener(v -> {
+            Intent addEventIntent = new Intent(EventsActivity.this, AddEventActivity.class);
+            // Pass the subject list ID so the new event is linked to this list
+            addEventIntent.putExtra("SUBJECT_LIST_ID", subjectListId);
+            startActivity(addEventIntent);
+        });
     }
 
     private void loadEvents() {
@@ -59,7 +71,6 @@ public class EventsActivity extends AppCompatActivity {
             }
             cursor.close();
         }
-        // Check if no events were found and add a placeholder message
         if (eventDetails.isEmpty()) {
             Log.d("EventsActivity", "No events found for subject_list_id: " + subjectListId);
             eventDetails.add("No events found");
@@ -68,7 +79,6 @@ public class EventsActivity extends AppCompatActivity {
         listViewEvents.setAdapter(adapter);
     }
 
-    // Handle the up (back) arrow in the ActionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

@@ -17,11 +17,11 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
 
     private ListView listViewSubjectLists;
-    private Button buttonAddList, buttonAddEvent;
+    private Button buttonAddList;
     private DatabaseHelper dbHelper;
     private int userId; // ID of the logged-in user
 
-    // New ArrayList to hold subject list IDs in the same order as names
+    // We'll store subject list IDs in parallel to the names
     private ArrayList<Integer> subjectListIds = new ArrayList<>();
 
     @Override
@@ -31,47 +31,37 @@ public class HomeActivity extends AppCompatActivity {
 
         listViewSubjectLists = findViewById(R.id.listViewSubjectLists);
         buttonAddList = findViewById(R.id.buttonAddList);
-        buttonAddEvent = findViewById(R.id.buttonAddEvent);
         dbHelper = new DatabaseHelper(this);
 
         // Retrieve the user id passed from SignInActivity
         Intent intent = getIntent();
         userId = intent.getIntExtra("USER_ID", -1);
+        Log.d("HomeActivity", "User ID received: " + userId);
 
         loadSubjectLists();
 
-        // When a subject list item is clicked, open the EventsActivity for that list.
-        listViewSubjectLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
-                int subjectListId = subjectListIds.get(position);
-                Intent eventsIntent = new Intent(HomeActivity.this, EventsActivity.class);
-                eventsIntent.putExtra("SUBJECT_LIST_ID", subjectListId);
-                startActivity(eventsIntent);
-            }
+        // When a subject list is clicked, open EventsActivity for that list.
+        listViewSubjectLists.setOnItemClickListener((AdapterView<?> parent, android.view.View view, int position, long id) -> {
+            int subjectListId = subjectListIds.get(position);
+            Intent eventsIntent = new Intent(HomeActivity.this, EventsActivity.class);
+            eventsIntent.putExtra("SUBJECT_LIST_ID", subjectListId);
+            startActivity(eventsIntent);
         });
 
         // Open AddListActivity when "Add New Subject List" is clicked
-        buttonAddList.setOnClickListener(view -> {
+        buttonAddList.setOnClickListener(v -> {
             Intent addListIntent = new Intent(HomeActivity.this, AddListActivity.class);
             addListIntent.putExtra("USER_ID", userId);
             startActivity(addListIntent);
-        });
-
-        // Open AddEventActivity when "Add New Event" is clicked
-        buttonAddEvent.setOnClickListener(view -> {
-            Intent addEventIntent = new Intent(HomeActivity.this, AddEventActivity.class);
-            addEventIntent.putExtra("USER_ID", userId);
-            startActivity(addEventIntent);
         });
     }
 
     private void loadSubjectLists() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         ArrayList<String> listNames = new ArrayList<>();
-        subjectListIds.clear(); // Clear old data before loading
+        subjectListIds.clear();
 
-        // Retrieve both id and list_name for the subject lists of the user
+        // Retrieve both id and list_name for subject lists of the user.
         String query = "SELECT id, list_name FROM subject_lists WHERE user_id = ?";
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
         if (cursor != null) {
@@ -97,6 +87,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadSubjectLists(); // Refresh data when returning to HomeActivity
+        loadSubjectLists(); // refresh subject lists when returning to HomeActivity
     }
 }

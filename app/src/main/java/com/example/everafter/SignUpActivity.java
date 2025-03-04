@@ -3,10 +3,12 @@ package com.example.everafter;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,7 +29,10 @@ public class SignUpActivity extends AppCompatActivity {
         buttonRegister = findViewById(R.id.buttonRegister);
 
         dbHelper = new DatabaseHelper(this);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,5 +60,13 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Ends EventsActivity and returns to the previous activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

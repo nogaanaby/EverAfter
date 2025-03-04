@@ -3,9 +3,11 @@ package com.example.everafter;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +30,12 @@ public class AddListActivity extends AppCompatActivity {
 
         // Get the user id from the intent extras
         userId = getIntent().getIntExtra("USER_ID", -1);
+
+        // Enable the ActionBar "return" button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         buttonAdd.setOnClickListener(view -> {
             String listName = etListName.getText().toString().trim();
@@ -52,5 +60,13 @@ public class AddListActivity extends AppCompatActivity {
                 Toast.makeText(AddListActivity.this, "Error adding subject list", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Ends EventsActivity and returns to the previous activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
