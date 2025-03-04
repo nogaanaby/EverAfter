@@ -41,9 +41,9 @@ public class SignInActivity extends AppCompatActivity {
                 SQLiteDatabase db = dbHelper.getReadableDatabase();
                 String query = "SELECT * FROM users WHERE (username = ? OR email = ?) AND password = ?";
                 Cursor cursor = db.rawQuery(query, new String[]{usernameOrEmail, usernameOrEmail, password});
-
-                if (cursor != null && cursor.moveToFirst()) {
-                    int userId = cursor.getInt(cursor.getColumnIndex("id"));
+                int columnIndex = cursor.getColumnIndex("id");
+                if (cursor.moveToFirst() && columnIndex != -1) {
+                    int userId = cursor.getInt(columnIndex);
                     Toast.makeText(SignInActivity.this, "Sign in successful!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                     intent.putExtra("USER_ID", userId);
