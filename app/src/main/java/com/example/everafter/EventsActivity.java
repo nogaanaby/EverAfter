@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -21,6 +22,12 @@ public class EventsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
+
+        // Enable the ActionBar "up" button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         listViewEvents = findViewById(R.id.listViewEvents);
         dbHelper = new DatabaseHelper(this);
@@ -52,15 +59,22 @@ public class EventsActivity extends AppCompatActivity {
             }
             cursor.close();
         }
-
-        // Check if no events were found
+        // Check if no events were found and add a placeholder message
         if (eventDetails.isEmpty()) {
             Log.d("EventsActivity", "No events found for subject_list_id: " + subjectListId);
             eventDetails.add("No events found");
         }
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, eventDetails);
         listViewEvents.setAdapter(adapter);
     }
 
+    // Handle the up (back) arrow in the ActionBar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Ends EventsActivity and returns to the previous activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
