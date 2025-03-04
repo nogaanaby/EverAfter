@@ -1,6 +1,8 @@
 package com.example.everafter;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.view.MenuItem;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddEventActivity extends AppCompatActivity {
@@ -69,7 +73,16 @@ public class AddEventActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish(); // Ends EventsActivity and returns to the previous activity
+            new AlertDialog.Builder(this)
+                    .setTitle("Confirm Exit")
+                    .setMessage("Are you sure you want to exit without saving?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        finish();
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .show();
             return true;
         }
         return super.onOptionsItemSelected(item);

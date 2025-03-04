@@ -87,4 +87,10 @@ public class EventsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadEvents(); // This method queries the database and updates the ListView.
+    }
 }
