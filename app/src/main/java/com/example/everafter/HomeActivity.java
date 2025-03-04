@@ -1,5 +1,7 @@
 package com.example.everafter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +26,8 @@ public class HomeActivity extends AppCompatActivity {
 
     // We'll store subject list IDs in parallel to the names
     private ArrayList<Integer> subjectListIds = new ArrayList<>();
+    // We'll also store subject list names in parallel for deletion confirmation messages.
+    private ArrayList<String> subjectListNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,21 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(eventsIntent);
         });
 
+        // Long press to delete a subject list.
+        listViewSubjectLists.setOnItemLongClickListener((AdapterView<?> parent, android.view.View view, int position, long id) -> {
+            int subjectListId = subjectListIds.get(position);
+            String listName = subjectListNames.get(position);
+            new AlertDialog.Builder(HomeActivity.this)
+                    .setTitle("Delete List")
+                    .setMessage("Are you sure you want to delete the list \"" + listName + "\"?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        deleteSubjectList(subjectListId);
+                    })
+                    .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                    .show();
+            return true;
+        });
+
         // Open AddListActivity when "Add New Subject List" is clicked
         buttonAddList.setOnClickListener(v -> {
             Intent addListIntent = new Intent(HomeActivity.this, AddListActivity.class);
@@ -60,6 +80,7 @@ public class HomeActivity extends AppCompatActivity {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         ArrayList<String> listNames = new ArrayList<>();
         subjectListIds.clear();
+        subjectListNames.clear();
 
         // Retrieve both id and list_name for subject lists of the user.
         String query = "SELECT id, list_name FROM subject_lists WHERE user_id = ?";
@@ -75,6 +96,7 @@ public class HomeActivity extends AppCompatActivity {
                     String listName = cursor.getString(nameIndex);
                     listNames.add(listName);
                     subjectListIds.add(listId);
+                    subjectListNames.add(listName);
                     Log.d("HomeActivity", "Loaded subject list: ID=" + listId + ", Name=" + listName);
                 }
             }
@@ -84,9 +106,20 @@ public class HomeActivity extends AppCompatActivity {
         listViewSubjectLists.setAdapter(adapter);
     }
 
+    private void deleteSubjectList(int subjectListId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int deleted = db.delete("subject_lists", "id = ?", new String[]{String.valueOf(subjectListId)});
+        if (deleted > 0) {
+            Toast.makeText(this, "List deleted", Toast.LENGTH_SHORT).show();
+            loadSubjectLists(); // Refresh the list
+        } else {
+            Toast.makeText(this, "Error deleting list", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        loadSubjectLists(); // refresh subject lists when returning to HomeActivity
+        loadSubjectLists(); // Refresh subject lists when returning to HomeActivity
     }
 }
