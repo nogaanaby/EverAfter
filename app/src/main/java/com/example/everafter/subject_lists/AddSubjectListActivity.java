@@ -1,4 +1,4 @@
-package com.example.everafter;
+package com.example.everafter.subject_lists;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,13 +7,14 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.view.MenuItem;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AddListActivity extends AppCompatActivity {
+import com.example.everafter.DatabaseHelper;
+import com.example.everafter.R;
+
+public class AddSubjectListActivity extends AppCompatActivity {
 
     private EditText etListName, etDescription;
     private Button buttonAdd;
@@ -47,7 +48,7 @@ public class AddListActivity extends AppCompatActivity {
             String description = etDescription.getText().toString().trim();
 
             if (listName.isEmpty()) {
-                Toast.makeText(AddListActivity.this, "Please enter a list name", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddSubjectListActivity.this, "Please enter a list name", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -59,10 +60,10 @@ public class AddListActivity extends AppCompatActivity {
 
             long newRowId = db.insert("subject_lists", null, values);
             if (newRowId != -1) {
-                Toast.makeText(AddListActivity.this, "Subject list added successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddSubjectListActivity.this, "Subject list added successfully!", Toast.LENGTH_SHORT).show();
                 finish(); // Return to HomeActivity
             } else {
-                Toast.makeText(AddListActivity.this, "Error adding subject list", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddSubjectListActivity.this, "Error adding subject list", Toast.LENGTH_SHORT).show();
             }
         });
     }

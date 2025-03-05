@@ -24,12 +24,12 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".AddListActivity" />
-        <activity android:name=".AddEventActivity" />
-        <activity android:name=".EventsActivity" />
-        <activity android:name=".ItemsListActivity" />
-        <activity android:name=".AddItemActivity" />
-        <activity android:name=".SubjectsListActivity" />
+        <activity android:name=".subject_lists.AddSubjectListActivity" />
+        <activity android:name=".events.AddEventActivity" />
+        <activity android:name=".events.EventsActivity" />
+        <activity android:name=".generic_item.ItemsListActivity" />
+        <activity android:name=".generic_item.AddItemActivity" />
+        <activity android:name=".subject_lists.SubjectsListActivity" />
     </application>
 
 </manifest>

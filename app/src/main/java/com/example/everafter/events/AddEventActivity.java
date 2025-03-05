@@ -1,17 +1,11 @@
-package com.example.everafter;
+package com.example.everafter.events;
 
-import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.everafter.generic_item.AddItemActivity;
+import com.example.everafter.R;
 
 public class AddEventActivity extends AddItemActivity {
 

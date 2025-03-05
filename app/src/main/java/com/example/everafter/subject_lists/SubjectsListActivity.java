@@ -1,14 +1,18 @@
-package com.example.everafter;
-import com.example.everafter.ItemsListActivity;
-import com.example.everafter.ItemsListAdapter;
+package com.example.everafter.subject_lists;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
-import com.example.everafter.ItemsListActivity.ActionListener;
+
+import com.example.everafter.DatabaseHelper;
+import com.example.everafter.generic_item.Item;
+import com.example.everafter.generic_item.ItemsListActivity;
+import com.example.everafter.generic_item.ItemsListAdapter;
+import com.example.everafter.R;
+import com.example.everafter.events.AddEventActivity;
+
 import java.util.ArrayList;
 
 public class SubjectsListActivity extends ItemsListActivity {
@@ -34,7 +38,7 @@ public class SubjectsListActivity extends ItemsListActivity {
 
     @Override
     protected void onAddNewItem(){
-        Intent intent = new Intent(this, AddListActivity.class);
+        Intent intent = new Intent(this, AddSubjectListActivity.class);
         intent.putExtra("USER_ID", userId);
         startActivity(intent);
     }

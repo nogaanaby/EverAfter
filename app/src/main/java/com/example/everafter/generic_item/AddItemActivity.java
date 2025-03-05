@@ -1,4 +1,4 @@
-package com.example.everafter;
+package com.example.everafter.generic_item;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.everafter.DatabaseHelper;
 
 public abstract class AddItemActivity extends AppCompatActivity {
 

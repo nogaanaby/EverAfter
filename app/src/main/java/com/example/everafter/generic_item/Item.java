@@ -1,4 +1,4 @@
-package com.example.everafter;
+package com.example.everafter.generic_item;
 
 public class Item {
     private int id;

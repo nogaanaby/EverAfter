@@ -1,7 +1,5 @@
-package com.example.everafter;
+package com.example.everafter.generic_item;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.view.View;
@@ -9,6 +7,10 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import com.example.everafter.DatabaseHelper;
+import com.example.everafter.R;
+
 import java.util.ArrayList;
 
 

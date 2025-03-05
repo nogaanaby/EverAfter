@@ -1,4 +1,4 @@
-package com.example.everafter;
+package com.example.everafter.generic_item;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.everafter.R;
 
 import java.util.List;
 

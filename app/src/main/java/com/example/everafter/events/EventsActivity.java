@@ -1,4 +1,4 @@
-package com.example.everafter;
+package com.example.everafter.events;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +11,9 @@ import android.widget.ListView;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.everafter.DatabaseHelper;
+import com.example.everafter.R;
 
 import java.util.ArrayList;
 
