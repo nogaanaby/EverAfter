@@ -9,19 +9,14 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.view.MenuItem;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AddEventActivity extends AppCompatActivity {
+public class AddEventActivity extends AddItemActivity {
 
     private EditText etEventName, etEventDate;
-    private Button buttonAddEvent;
-    private DatabaseHelper dbHelper;
-    private int userId;         // Logged-in user's id
-    private int subjectListId;  // The subject list id passed automatically
+    private int subjectListId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,59 +27,46 @@ public class AddEventActivity extends AppCompatActivity {
         subjectListId = getIntent().getIntExtra("SUBJECT_LIST_ID", -1);
         userId = getIntent().getIntExtra("USER_ID", -1);
 
-        etEventName = findViewById(R.id.etEventName);
-        etEventDate = findViewById(R.id.etEventDate);
-        buttonAddEvent = findViewById(R.id.buttonAddEvent);
-        dbHelper = new DatabaseHelper(this);
-
-        // Enable the ActionBar "return" button
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-
-        buttonAddEvent.setOnClickListener(view -> {
-            String eventName = etEventName.getText().toString().trim();
-            String eventDate = etEventDate.getText().toString().trim();
-
-            if (eventName.isEmpty() || eventDate.isEmpty()) {
-                Toast.makeText(AddEventActivity.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-            ContentValues values = new ContentValues();
-            values.put("event_name", eventName);
-            values.put("event_date", eventDate);
-            values.put("user_id", userId);
-            // Use the subjectListId passed from the previous activity
-            values.put("subject_lists_id", subjectListId);
-
-            long newRowId = db.insert("events", null, values);
-            if (newRowId != -1) {
-                Toast.makeText(AddEventActivity.this, "Event added successfully!", Toast.LENGTH_SHORT).show();
-                finish(); // Return to previous activity
-            } else {
-                Toast.makeText(AddEventActivity.this, "Error adding event", Toast.LENGTH_SHORT).show();
-            }
-        });
+        loadFields();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Confirm Exit")
-                    .setMessage("Are you sure you want to exit without saving?")
-                    .setPositiveButton("Yes", (dialog, which) -> {
-                        finish();
-                    })
-                    .setNegativeButton("No", (dialog, which) -> {
-                        dialog.dismiss();
-                    })
-                    .show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    protected void loadFields() {
+        etEventName = findViewById(R.id.etEventName);
+        etEventDate = findViewById(R.id.etEventDate);
+    }
+
+
+    @Override
+    protected boolean validateFields() {
+        // Check that both fields are non-empty.
+        return !etEventName.getText().toString().trim().isEmpty() &&
+                !etEventDate.getText().toString().trim().isEmpty();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_add_event;
+    }
+
+    @Override
+    protected int getButtonId() {
+        // The Add button is defined in the layout; ensure this ID matches.
+        return R.id.buttonAddItem;
+    }
+
+    @Override
+    protected ContentValues populateContentValues() {
+        ContentValues values = new ContentValues();
+        values.put("event_name", etEventName.getText().toString().trim());
+        values.put("event_date", etEventDate.getText().toString().trim());
+        values.put("user_id", userId);
+        values.put("subject_lists_id", subjectListId);
+        return values;
+    }
+
+    @Override
+    protected String getTableName() {
+        return "events";
     }
 }

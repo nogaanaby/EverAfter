@@ -19,6 +19,7 @@ public class AddListActivity extends AppCompatActivity {
     private Button buttonAdd;
     private DatabaseHelper dbHelper;
     private int userId;
+    private int subjectListId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,8 @@ public class AddListActivity extends AppCompatActivity {
         etDescription = findViewById(R.id.etDescription);
         buttonAdd = findViewById(R.id.buttonAdd);
         dbHelper = new DatabaseHelper(this);
+        subjectListId= getIntent().getIntExtra("SUBJECT_LIST_ID", -1);
+        userId = getIntent().getIntExtra("USER_ID", -1);
 
         // Get the user id from the intent extras
         userId = getIntent().getIntExtra("USER_ID", -1);

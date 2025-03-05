@@ -32,14 +32,20 @@ public class SubjectsListActivity extends ItemsListActivity {
         return R.id.listViewSubjectLists;
     }
 
+    @Override
+    protected void onAddNewItem(){
+        Intent intent = new Intent(this, AddListActivity.class);
+        intent.putExtra("USER_ID", userId);
+        startActivity(intent);
+    }
+
     /**
      * Called when the "Add Sub-Item" icon is clicked on a subject list item.
      * For subject lists, we interpret this as adding an event to the selected subject list.
      */
     @Override
     protected void onAddSubItem(Item item) {
-        Intent intent = new Intent(this, AddListActivity.class);
-
+        Intent intent = new Intent(this, AddEventActivity.class);
         startActivity(intent);
     }
 

@@ -4,10 +4,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import java.util.ArrayList;
+
 
 /**
  * Abstract class ItemsListActivity provides generic functionality to display a list of items
@@ -39,6 +42,16 @@ public abstract class ItemsListActivity extends AppCompatActivity {
 
         // Initialize the ListView; subclass must have setContentView() that defines it.
         listViewItems = findViewById(getListViewId());
+        Button buttonAddSubjectList = findViewById(R.id.buttonAddSubjectList);
+        if (buttonAddSubjectList != null) {
+            buttonAddSubjectList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onAddNewItem();
+                }
+            });
+        }
+
         super.onCreate(savedInstanceState);
 
         loadItems();
@@ -60,7 +73,7 @@ public abstract class ItemsListActivity extends AppCompatActivity {
      * Assumes the table has a primary key column "id".
      */
     protected abstract void loadItems();
-
+    protected abstract void onAddNewItem();
     @Override
     protected void onResume() {
         super.onResume();
