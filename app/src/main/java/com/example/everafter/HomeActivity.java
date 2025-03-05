@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         listIntent.putExtra("USER_ID", userId);
         startActivity(listIntent);
 
-//        // Optionally, finish HomeActivity if you want ItemsListActivity to replace it:
-//        finish();
+        // Optionally, finish HomeActivity if you want ItemsListActivity to replace it:
+        finish();
     }
 }

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.view.MenuItem;
 import java.util.ArrayList;
 
 /**
@@ -42,7 +42,11 @@ public abstract class ItemsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         loadItems();
-
+        // Enable the ActionBar "up" button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         // Optionally set an item click listener if needed.
     }
 
@@ -71,7 +75,14 @@ public abstract class ItemsListActivity extends AppCompatActivity {
         void onEditItem(Item item);
         void onDeleteItem(Item item);
     }
-//
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Ends EventsActivity and returns to the previous activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     // Abstract methods that subclasses must implement for handling actions:
     protected abstract void onAddSubItem(Item item);
     protected abstract void onEditItem(Item item);
