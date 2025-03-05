@@ -27,6 +27,9 @@
         <activity android:name=".AddListActivity" />
         <activity android:name=".AddEventActivity" />
         <activity android:name=".EventsActivity" />
+        <activity android:name=".ItemsListActivity" />
+        <activity android:name=".AddItemActivity" />
+        <activity android:name=".SubjectsListActivity" />
     </application>
 
 </manifest>

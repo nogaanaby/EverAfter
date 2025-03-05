@@ -1,0 +1,101 @@
+package com.example.everafter;
+import com.example.everafter.ItemsListActivity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+public class SubjectsListActivity extends ItemsListActivity {
+
+    protected DatabaseHelper dbHelper;
+    protected int userId; // New field for USER_ID
+    protected ArrayList<Item> items = new ArrayList<>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        userId = getIntent().getIntExtra("USER_ID", -1);
+        dbHelper = new DatabaseHelper(this);
+        setContentView(R.layout.activity_subjects_list);
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    protected int getListViewId() {
+        // The ListView in the layout (activity_subject_list.xml) should have this ID.
+        return R.id.listViewSubjectLists;
+    }
+
+    /**
+     * Called when the "Add Sub-Item" icon is clicked on a subject list item.
+     * For subject lists, we interpret this as adding an event to the selected subject list.
+     */
+    @Override
+    protected void onAddSubItem(Item item) {
+        Intent intent = new Intent(this, AddListActivity.class);
+
+        startActivity(intent);
+    }
+
+    /**
+     * Called when the "Edit" icon is clicked on a subject list item.
+     * Launches an activity to edit the subject list.
+     */
+    @Override
+    protected void onEditItem(Item item) {
+//        Intent intent = new Intent(this, EditSubjectListActivity.class);
+//        intent.putExtra("ITEM_ID", item.getId());
+//        startActivity(intent);
+    }
+
+    /**
+     * Called when the "Delete" icon is clicked on a subject list item.
+     * Deletes the subject list from the database and reloads the list.
+     */
+    @Override
+    protected void onDeleteItem(Item item) {
+        int deleted = dbHelper.getWritableDatabase().delete("subject_lists", "id = ?", new String[]{String.valueOf(item.getId())});
+        if (deleted > 0) {
+            Toast.makeText(this, "Subject list deleted", Toast.LENGTH_SHORT).show();
+            loadItems();
+        } else {
+            Toast.makeText(this, "Error deleting subject list", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void loadItems() {
+        items.clear();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String query = "SELECT id, list_name FROM subject_lists WHERE user_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+        if (cursor != null) {
+            int idIndex = cursor.getColumnIndex("id");
+            int nameIndex = cursor.getColumnIndex("list_name");
+            if (idIndex < 0 || nameIndex < 0) {
+                Log.e("SubjectsListActivity", "One or more columns not found in subject_lists query");
+            } else {
+                while (cursor.moveToNext()) {
+                    int listId = cursor.getInt(idIndex);
+                    String listName = cursor.getString(nameIndex);
+                    items.add(new Item(listId, listName));
+                    Log.d("SubjectsListActivity", "Loaded subject list: ID=" + listId + ", Name=" + listName);
+                }
+            }
+            cursor.close();
+        }
+        // Create a simple adapter to display the list names.
+        ArrayList<String> listNames = new ArrayList<>();
+        for (Item item : items) {
+            listNames.add(item.getDisplayText());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listNames);
+        listViewItems.setAdapter(adapter);
+    }
+
+}
