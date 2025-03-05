@@ -19,8 +19,8 @@
     <!-- Add sub-item icon -->
     <ImageButton
         android:id="@+id/btnAddSubItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@android:drawable/ic_input_add"
         android:contentDescription="Add Sub-Item"
         android:background="?android:attr/selectableItemBackgroundBorderless"
@@ -29,8 +29,8 @@
     <!-- Edit icon (to the left of the add icon) -->
     <ImageButton
         android:id="@+id/btnEditItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@android:drawable/ic_menu_edit"
         android:contentDescription="Edit Item"
         android:background="?android:attr/selectableItemBackgroundBorderless"
@@ -41,8 +41,8 @@
     <!-- Delete icon (to the left of the edit icon) -->
     <ImageButton
         android:id="@+id/btnDeleteItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@android:drawable/ic_menu_delete"
         android:contentDescription="Delete Item"
         android:background="?android:attr/selectableItemBackgroundBorderless"

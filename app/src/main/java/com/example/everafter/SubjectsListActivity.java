@@ -1,5 +1,6 @@
 package com.example.everafter;
 import com.example.everafter.ItemsListActivity;
+import com.example.everafter.ItemsListAdapter;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,7 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
+import com.example.everafter.ItemsListActivity.ActionListener;
 import java.util.ArrayList;
 
 public class SubjectsListActivity extends ItemsListActivity {
@@ -94,7 +95,20 @@ public class SubjectsListActivity extends ItemsListActivity {
         for (Item item : items) {
             listNames.add(item.getDisplayText());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listNames);
+        ItemsListAdapter adapter = new ItemsListAdapter(this, items, new ItemsListActivity.ActionListener() {
+            @Override
+            public void onAddSubItem(Item item) {
+                SubjectsListActivity.this.onAddSubItem(item);
+            }
+            @Override
+            public void onEditItem(Item item) {
+                SubjectsListActivity.this.onEditItem(item);
+            }
+            @Override
+            public void onDeleteItem(Item item) {
+                SubjectsListActivity.this.onDeleteItem(item);
+            }
+        });
         listViewItems.setAdapter(adapter);
     }
 
