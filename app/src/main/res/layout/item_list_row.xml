@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:descendantFocusability="blocksDescendants">
 
     <!-- Display text for the item -->
     <TextView
@@ -14,7 +15,8 @@
         android:textSize="16sp"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        />
 
     <!-- Add sub-item icon -->
     <ImageButton

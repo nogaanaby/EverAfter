@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.everafter.DatabaseHelper;
+import com.example.everafter.events.EventsActivity;
 import com.example.everafter.generic_item.Item;
 import com.example.everafter.generic_item.ItemsListActivity;
 import com.example.everafter.generic_item.ItemsListAdapter;
@@ -19,7 +20,6 @@ public class SubjectsListActivity extends ItemsListActivity {
 
     protected DatabaseHelper dbHelper;
     protected int userId; // New field for USER_ID
-    protected ArrayList<Item> items = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,12 @@ public class SubjectsListActivity extends ItemsListActivity {
         super.onCreate(savedInstanceState);
 
     }
-
+    @Override
+    protected void onListItemClick(Item item) {
+        Intent eventsIntent = new Intent(this, EventsActivity.class);
+        eventsIntent.putExtra("SUBJECT_LIST_ID", item.getId());
+        startActivity(eventsIntent);
+    }
     @Override
     protected int getListViewId() {
         // The ListView in the layout (activity_subject_list.xml) should have this ID.

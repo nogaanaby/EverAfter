@@ -1,6 +1,7 @@
 package com.example.everafter.generic_item;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.view.View;
 import android.widget.Button;
@@ -40,36 +41,34 @@ public abstract class ItemsListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Subclasses should call setContentView() with their layout before calling super.onCreate() if needed.
-
-        // Initialize the ListView; subclass must have setContentView() that defines it.
         listViewItems = findViewById(getListViewId());
+        loadItems();
+
+        listViewItems.setOnItemClickListener((parent, view, position, id) -> {
+            Item clickedItem = items.get(position);
+            onListItemClick(clickedItem);
+        });
+
         Button buttonAddSubjectList = findViewById(R.id.buttonAddSubjectList);
         if (buttonAddSubjectList != null) {
-            buttonAddSubjectList.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onAddNewItem();
-                }
-            });
+            buttonAddSubjectList.setOnClickListener(v -> onAddNewItem());
         }
 
         super.onCreate(savedInstanceState);
 
-        loadItems();
         // Enable the ActionBar "up" button
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        // Optionally set an item click listener if needed.
+
     }
 
     /**
      * Subclasses must return the ListView resource ID from their layout.
      */
     protected abstract int getListViewId();
-
+    protected abstract void onListItemClick(Item item);
     /**
      * Loads the items from the database.
      * Assumes the table has a primary key column "id".

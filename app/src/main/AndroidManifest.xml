@@ -27,7 +27,6 @@
         <activity android:name=".subject_lists.AddSubjectListActivity" />
         <activity android:name=".events.AddEventActivity" />
         <activity android:name=".events.EventsActivity" />
-        <activity android:name=".generic_item.ItemsListActivity" />
         <activity android:name=".generic_item.AddItemActivity" />
         <activity android:name=".subject_lists.SubjectsListActivity" />
     </application>
