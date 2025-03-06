@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class SubjectsListActivity extends ItemsListActivity {
 
     protected DatabaseHelper dbHelper;
-    protected int userId; // New field for USER_ID
+    protected int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,8 @@ public class SubjectsListActivity extends ItemsListActivity {
     protected void onListItemClick(Item item) {
         Intent eventsIntent = new Intent(this, EventsActivity.class);
         eventsIntent.putExtra("SUBJECT_LIST_ID", item.getId());
+        eventsIntent.putExtra("USER_ID", userId);
+
         startActivity(eventsIntent);
     }
     @Override

@@ -14,86 +14,110 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.everafter.DatabaseHelper;
 import com.example.everafter.R;
+import com.example.everafter.generic_item.Item;
+import com.example.everafter.generic_item.ItemsListActivity;
+import com.example.everafter.generic_item.ItemsListAdapter;
+import com.example.everafter.subject_lists.SubjectsListActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-public class EventsActivity extends AppCompatActivity {
+public class EventsActivity extends ItemsListActivity {
 
-    private ListView listViewEvents;
-    private Button buttonAddEvent;
-    private DatabaseHelper dbHelper;
+    protected DatabaseHelper dbHelper;
+    protected int userId;
     private int subjectListId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
-
-        // Enable the ActionBar "up" button
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-
-        listViewEvents = findViewById(R.id.listViewEvents);
-        buttonAddEvent = findViewById(R.id.buttonAddEvent);
+        userId = getIntent().getIntExtra("USER_ID", -1);
         dbHelper = new DatabaseHelper(this);
-
-        // Retrieve the subject list ID passed from HomeActivity
         subjectListId = getIntent().getIntExtra("SUBJECT_LIST_ID", -1);
-        Log.d("EventsActivity", "Subject List ID: " + subjectListId);
+        loadItems();
+        super.onCreate(savedInstanceState);
 
-        loadEvents();
-
-        // When "Add New Event" is clicked, open AddEventActivity
-        buttonAddEvent.setOnClickListener(v -> {
-            Intent addEventIntent = new Intent(EventsActivity.this, AddEventActivity.class);
-            // Pass the subject list ID so the new event is linked to this list
-            addEventIntent.putExtra("SUBJECT_LIST_ID", subjectListId);
-            startActivity(addEventIntent);
-        });
     }
 
-    private void loadEvents() {
-        ArrayList<String> eventDetails = new ArrayList<>();
+    @Override
+    protected int getListViewId() {
+        return R.id.listViewEvents;
+    }
+
+    @Override
+    protected void onListItemClick(Item item) {
+
+    }
+
+    @Override
+    protected void loadItems() {
+        items.clear();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String query = "SELECT event_name, event_date FROM events WHERE subject_lists_id = ?";
+        String query = "SELECT id, event_name, event_date FROM events WHERE subject_lists_id = ?";
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(subjectListId)});
         if (cursor != null) {
+            int idIndex = cursor.getColumnIndex("id");
             int nameIndex = cursor.getColumnIndex("event_name");
             int dateIndex = cursor.getColumnIndex("event_date");
-            if (nameIndex < 0 || dateIndex < 0) {
+            if (idIndex < 0 || nameIndex < 0 || dateIndex < 0) {
                 Log.e("EventsActivity", "One or more columns not found in events query");
             } else {
                 while (cursor.moveToNext()) {
+                    int eventId = cursor.getInt(idIndex);
                     String eventName = cursor.getString(nameIndex);
-                    String eventDate = cursor.getString(dateIndex);
-                    eventDetails.add(eventName + " (" + eventDate + ")");
-                    Log.d("EventsActivity", "Loaded event: " + eventName + " on " + eventDate);
+                    Date eventDate = new Date(cursor.getLong(dateIndex));
+                    eventName = eventName + " (" + eventDate + ")";
+                    items.add(new Item(eventId, eventName));
+                    Log.d("EventsActivity", "Loaded event: ID=" + eventId + ", Name=" + eventName);
                 }
+
+                if (items.isEmpty()) {
+                    Log.d("EventsActivity", "No events found for subject_list_id: " + subjectListId);
+                    return;
+                }
+                // Create a simple adapter to display the list names.
+                ArrayList<String> listNames = new ArrayList<>();
+                for (Item item : items) {
+                    listNames.add(item.getDisplayText());
+                }
+                ItemsListAdapter adapter = new ItemsListAdapter(this, items, new ItemsListActivity.ActionListener() {
+                    @Override
+                    public void onAddSubItem(Item item) {
+
+                    }
+
+                    @Override
+                    public void onEditItem(Item item) {
+                        EventsActivity.this.onEditItem(item);
+                    }
+                    @Override
+                    public void onDeleteItem(Item item) {
+                        EventsActivity.this.onDeleteItem(item);
+                    }
+                });
+                listViewItems.setAdapter(adapter);
             }
             cursor.close();
         }
-        if (eventDetails.isEmpty()) {
-            Log.d("EventsActivity", "No events found for subject_list_id: " + subjectListId);
-            eventDetails.add("No events found");
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, eventDetails);
-        listViewEvents.setAdapter(adapter);
+
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // Ends EventsActivity and returns to the previous activity
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    protected void onAddNewItem() {
+        Intent addEventIntent = new Intent(EventsActivity.this, AddEventActivity.class);
+        // Pass the subject list ID so the new event is linked to this list
+        addEventIntent.putExtra("SUBJECT_LIST_ID", subjectListId);
+        startActivity(addEventIntent);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        loadEvents(); // This method queries the database and updates the ListView.
+    protected void onEditItem(Item item) {
+
     }
+
+    @Override
+    protected void onDeleteItem(Item item) {
+
+    }
+
 }
