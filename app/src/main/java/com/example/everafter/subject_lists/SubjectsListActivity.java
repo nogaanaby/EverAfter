@@ -113,10 +113,9 @@ public class SubjectsListActivity extends ItemsListActivity {
             }
             cursor.close();
         }
-        // Create a simple adapter to display the list names.
-        ArrayList<String> listNames = new ArrayList<>();
-        for (Item item : items) {
-            listNames.add(item.getDisplayText());
+        if (items.isEmpty()) {
+            Log.d("EventsActivity", "No events found for user_id: " + userId);
+            return;
         }
         ItemsListAdapter adapter = new ItemsListAdapter(this, items, new ItemsListActivity.ActionListener() {
             @Override

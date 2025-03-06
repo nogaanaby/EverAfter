@@ -98,7 +98,7 @@ public abstract class ItemsListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     // Abstract methods that subclasses must implement for handling actions:
-    protected void onAddSubItem(Item item){}
+    protected abstract void onAddSubItem(Item item);
     protected abstract void onEditItem(Item item);
     protected abstract void onDeleteItem(Item item);
     protected abstract int getButtonId();

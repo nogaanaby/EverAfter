@@ -32,29 +32,6 @@ public class AddSubjectListActivity extends AddItemActivity {
         loadFields();
         super.onCreate(savedInstanceState);
 
-//        buttonAdd.setOnClickListener(view -> {
-//            String listName = etListName.getText().toString().trim();
-//            String description = etDescription.getText().toString().trim();
-//
-//            if (listName.isEmpty()) {
-//                Toast.makeText(AddSubjectListActivity.this, "Please enter a list name", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//
-//            SQLiteDatabase db = dbHelper.getWritableDatabase();
-//            ContentValues values = new ContentValues();
-//            values.put("list_name", listName);
-//            values.put("description", description);
-//            values.put("user_id", userId);
-//
-//            long newRowId = db.insert("subject_lists", null, values);
-//            if (newRowId != -1) {
-//                Toast.makeText(AddSubjectListActivity.this, "Subject list added successfully!", Toast.LENGTH_SHORT).show();
-//                finish(); // Return to HomeActivity
-//            } else {
-//                Toast.makeText(AddSubjectListActivity.this, "Error adding subject list", Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     @Override

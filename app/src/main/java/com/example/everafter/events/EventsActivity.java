@@ -34,8 +34,9 @@ public class EventsActivity extends ItemsListActivity {
         userId = getIntent().getIntExtra("USER_ID", -1);
         dbHelper = new DatabaseHelper(this);
         subjectListId = getIntent().getIntExtra("SUBJECT_LIST_ID", -1);
-        loadItems();
         super.onCreate(savedInstanceState);
+
+        loadItems();
 
     }
 
@@ -75,17 +76,10 @@ public class EventsActivity extends ItemsListActivity {
                     Log.d("EventsActivity", "No events found for subject_list_id: " + subjectListId);
                     return;
                 }
-                // Create a simple adapter to display the list names.
-                ArrayList<String> listNames = new ArrayList<>();
-                for (Item item : items) {
-                    listNames.add(item.getDisplayText());
-                }
+
                 ItemsListAdapter adapter = new ItemsListAdapter(this, items, new ItemsListActivity.ActionListener() {
                     @Override
-                    public void onAddSubItem(Item item) {
-
-                    }
-
+                    public void onAddSubItem(Item item) {EventsActivity.this.onAddSubItem(item);}
                     @Override
                     public void onEditItem(Item item) {
                         EventsActivity.this.onEditItem(item);
@@ -118,6 +112,16 @@ public class EventsActivity extends ItemsListActivity {
     @Override
     protected void onDeleteItem(Item item) {
 
+    }
+
+    @Override
+    protected void onAddSubItem(Item item) {
+    }
+
+
+    @Override
+    protected int getButtonId() {
+        return R.id.buttonAddEvent;
     }
 
 }
