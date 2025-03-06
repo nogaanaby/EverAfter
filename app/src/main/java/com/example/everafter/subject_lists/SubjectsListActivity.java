@@ -23,8 +23,7 @@ public class SubjectsListActivity extends ItemsListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        userId = getIntent().getIntExtra("USER_ID", -1);
-        userId=1;
+        userId = getIntent().getIntExtra("USER_ID", -1);
         dbHelper = new DatabaseHelper(this);
         setContentView(R.layout.activity_subjects_list);
         super.onCreate(savedInstanceState);
@@ -114,7 +113,8 @@ public class SubjectsListActivity extends ItemsListActivity {
             cursor.close();
         }
         if (items.isEmpty()) {
-            Log.d("EventsActivity", "No events found for user_id: " + userId);
+            Toast.makeText(SubjectsListActivity.this, "No events found.", Toast.LENGTH_SHORT).show();
+            listViewItems.setAdapter(null); // Or set an empty adapter if needed.
             return;
         }
         ItemsListAdapter adapter = new ItemsListAdapter(this, items, new ItemsListActivity.ActionListener() {

@@ -89,7 +89,8 @@ public class EventsActivity extends ItemsListActivity {
                 }
 
                 if (items.isEmpty()) {
-                    Log.d("EventsActivity", "No events found for subject_list_id: " + subjectListId);
+                    Toast.makeText(EventsActivity.this, "No events found.", Toast.LENGTH_SHORT).show();
+                    listViewItems.setAdapter(null); // Or set an empty adapter if needed.
                     return;
                 }
 
