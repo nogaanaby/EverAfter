@@ -14,7 +14,6 @@ public class AddEventActivity extends AddItemActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
         // Retrieve subject list ID and user ID from the Intent extras
@@ -22,6 +21,8 @@ public class AddEventActivity extends AddItemActivity {
         userId = getIntent().getIntExtra("USER_ID", -1);
 
         loadFields();
+        super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -46,7 +47,7 @@ public class AddEventActivity extends AddItemActivity {
     @Override
     protected int getButtonId() {
         // The Add button is defined in the layout; ensure this ID matches.
-        return R.id.buttonAddItem;
+        return R.id.buttonAddEvent;
     }
 
     @Override
