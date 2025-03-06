@@ -3,6 +3,7 @@ package com.example.everafter.events;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -20,8 +21,10 @@ import com.example.everafter.generic_item.ItemsListActivity;
 import com.example.everafter.generic_item.ItemsListAdapter;
 import com.example.everafter.subject_lists.SubjectsListActivity;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class EventsActivity extends ItemsListActivity {
 
@@ -67,8 +70,20 @@ public class EventsActivity extends ItemsListActivity {
                 while (cursor.moveToNext()) {
                     int eventId = cursor.getInt(idIndex);
                     String eventName = cursor.getString(nameIndex);
-                    Date eventDate = new Date(cursor.getLong(dateIndex));
-                    eventName = eventName + " (" + eventDate + ")";
+
+                    //get the date from the database it storing as text and we need to cast it to date
+                    String dateString = cursor.getString(dateIndex);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    try {
+                        Date eventDate = sdf.parse(dateString);
+                        String formattedDate = sdf.format(eventDate);
+                        eventName = eventName + " " + formattedDate + "";
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        eventName = eventName + " (unknown date)";
+                    }
+
+
                     items.add(new Item(eventId, eventName));
                     Log.d("EventsActivity", "Loaded event: ID=" + eventId + ", Name=" + eventName);
                 }
