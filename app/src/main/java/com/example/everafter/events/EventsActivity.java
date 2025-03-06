@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -111,7 +112,13 @@ public class EventsActivity extends ItemsListActivity {
 
     @Override
     protected void onDeleteItem(Item item) {
-
+        int deleted = dbHelper.getWritableDatabase().delete("events", "id = ?", new String[]{String.valueOf(item.getId())});
+        if (deleted > 0) {
+            Toast.makeText(this, "Event deleted", Toast.LENGTH_SHORT).show();
+            loadItems();
+        } else {
+            Toast.makeText(this, "Error deleting Event", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
