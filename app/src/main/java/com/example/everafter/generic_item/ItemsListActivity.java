@@ -36,7 +36,7 @@ public abstract class ItemsListActivity extends AppCompatActivity {
 
     protected DatabaseHelper dbHelper;
     protected ArrayList<Item> items = new ArrayList<>();
-
+    protected Button buttonAddItem;
     protected ListView listViewItems;
 
     @Override
@@ -49,9 +49,9 @@ public abstract class ItemsListActivity extends AppCompatActivity {
             onListItemClick(clickedItem);
         });
 
-        Button buttonAddSubjectList = findViewById(R.id.buttonAddSubjectList);
-        if (buttonAddSubjectList != null) {
-            buttonAddSubjectList.setOnClickListener(v -> onAddNewItem());
+        buttonAddItem= findViewById(getButtonId());
+        if (buttonAddItem != null) {
+            buttonAddItem.setOnClickListener(v -> onAddNewItem());
         }
 
         super.onCreate(savedInstanceState);
@@ -101,4 +101,5 @@ public abstract class ItemsListActivity extends AppCompatActivity {
     protected void onAddSubItem(Item item){}
     protected abstract void onEditItem(Item item);
     protected abstract void onDeleteItem(Item item);
+    protected abstract int getButtonId();
 }

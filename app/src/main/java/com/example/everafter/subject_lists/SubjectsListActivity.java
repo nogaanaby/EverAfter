@@ -23,7 +23,8 @@ public class SubjectsListActivity extends ItemsListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        userId = getIntent().getIntExtra("USER_ID", -1);
+//        userId = getIntent().getIntExtra("USER_ID", -1);
+        userId=1;
         dbHelper = new DatabaseHelper(this);
         setContentView(R.layout.activity_subjects_list);
         super.onCreate(savedInstanceState);
@@ -84,6 +85,11 @@ public class SubjectsListActivity extends ItemsListActivity {
         } else {
             Toast.makeText(this, "Error deleting subject list", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected int getButtonId() {
+        return R.id.buttonAddSubjectList;
     }
 
     @Override
