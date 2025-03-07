@@ -29,6 +29,7 @@
         <activity android:name=".events.EventsActivity" />
         <activity android:name=".subject_lists.SubjectsListActivity" />
         <activity android:name=".subject_lists.EditSubjectListActivity" />
+        <activity android:name=".events.EditEventActivity" />
     </application>
 
 </manifest>

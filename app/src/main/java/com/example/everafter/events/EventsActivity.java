@@ -19,6 +19,7 @@ import com.example.everafter.R;
 import com.example.everafter.generic_item.Item;
 import com.example.everafter.generic_item.ItemsListActivity;
 import com.example.everafter.generic_item.ItemsListAdapter;
+import com.example.everafter.subject_lists.EditSubjectListActivity;
 import com.example.everafter.subject_lists.SubjectsListActivity;
 
 import java.text.ParseException;
@@ -50,7 +51,7 @@ public class EventsActivity extends ItemsListActivity {
 
     @Override
     protected void onListItemClick(Item item) {
-
+        onEditItem(item);
     }
 
     @Override
@@ -122,7 +123,11 @@ public class EventsActivity extends ItemsListActivity {
 
     @Override
     protected void onEditItem(Item item) {
-
+        Intent intent = new Intent(this, EditEventActivity.class);
+        intent.putExtra("ITEM_ID", item.getId());
+        intent.putExtra("USER_ID", userId);
+        intent.putExtra("SUBJECT_LIST_ID", subjectListId);
+        startActivity(intent);
     }
 
     @Override
