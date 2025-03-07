@@ -57,6 +57,7 @@ public class SubjectsListActivity extends ItemsListActivity {
     @Override
     protected void onAddSubItem(Item item) {
         Intent intent = new Intent(this, AddEventActivity.class);
+        intent.putExtra("SUBJECT_LIST_ID", item.getId());
         startActivity(intent);
     }
 
