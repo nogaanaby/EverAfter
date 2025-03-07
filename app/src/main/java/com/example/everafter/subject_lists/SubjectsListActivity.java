@@ -67,11 +67,11 @@ public class SubjectsListActivity extends ItemsListActivity {
      */
     @Override
     protected void onEditItem(Item item) {
-//        Intent intent = new Intent(this, EditSubjectListActivity.class);
-//        intent.putExtra("ITEM_ID", item.getId());
-//        startActivity(intent);
+        Intent intent = new Intent(this, EditSubjectListActivity.class);
+        intent.putExtra("ITEM_ID", item.getId());
+        intent.putExtra("USER_ID", userId);
+        startActivity(intent);
     }
-
     /**
      * Called when the "Delete" icon is clicked on a subject list item.
      * Deletes the subject list from the database and reloads the list.
