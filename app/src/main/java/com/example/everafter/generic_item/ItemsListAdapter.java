@@ -35,6 +35,12 @@ public class ItemsListAdapter extends ArrayAdapter<Item> {
 
         tvItemDisplay.setText(item.getDisplayText());
 
+        if(getContext() instanceof com.example.everafter.events.EventsActivity) {
+            btnAddSubItem.setVisibility(View.INVISIBLE); // Keeps the space but hides the button.
+        } else {
+            btnAddSubItem.setVisibility(View.VISIBLE);
+        }
+
         btnAddSubItem.setOnClickListener(v -> {
             if (actionListener != null) {
                 actionListener.onAddSubItem(item);

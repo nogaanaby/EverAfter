@@ -13,43 +13,49 @@
         android:layout_height="wrap_content"
         android:text="Item"
         android:textSize="16sp"
-        android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:layout_marginEnd="8dp"
-        />
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/buttonContainer"
+        android:layout_marginEnd="8dp" />
 
-    <!-- Add sub-item icon -->
-    <ImageButton
-        android:id="@+id/btnAddSubItem"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@android:drawable/ic_input_add"
-        android:contentDescription="Add Sub-Item"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:layout_alignParentEnd="true" />
+    <!-- Container for the buttons aligned to the right -->
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
 
-    <!-- Edit icon (to the left of the add icon) -->
-    <ImageButton
-        android:id="@+id/btnEditItem"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@android:drawable/ic_menu_edit"
-        android:contentDescription="Edit Item"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:layout_toStartOf="@id/btnAddSubItem"
-        android:layout_marginEnd="8dp"
-        android:layout_centerVertical="true" />
+        <!-- Add sub-item icon -->
+        <ImageButton
+            android:id="@+id/btnAddSubItem"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_input_add"
+            android:contentDescription="Add Sub-Item"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_marginEnd="8dp" />
 
-    <!-- Delete icon (to the left of the edit icon) -->
-    <ImageButton
-        android:id="@+id/btnDeleteItem"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@android:drawable/ic_menu_delete"
-        android:contentDescription="Delete Item"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:layout_toStartOf="@id/btnEditItem"
-        android:layout_marginEnd="8dp"
-        android:layout_centerVertical="true" />
+        <!-- Edit icon -->
+        <ImageButton
+            android:id="@+id/btnEditItem"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_edit"
+            android:contentDescription="Edit Item"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Delete icon -->
+        <ImageButton
+            android:id="@+id/btnDeleteItem"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_delete"
+            android:contentDescription="Delete Item"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+    </LinearLayout>
 
 </RelativeLayout>
