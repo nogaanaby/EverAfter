@@ -1,6 +1,8 @@
 package com.example.everafter.events;
 
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.EditText;
 
@@ -22,6 +24,25 @@ public class AddEventActivity extends AddItemActivity {
 
         loadFields();
         super.onCreate(savedInstanceState);
+        etEventDate.setFocusable(false);
+        etEventDate.setOnClickListener(v -> {
+            // Get current date
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            // Create and show DatePickerDialog
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    AddEventActivity.this,
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        // DatePickerDialog returns month starting at 0, so add 1
+                        String formattedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
+                        etEventDate.setText(formattedDate);
+                    },
+                    year, month, day);
+            datePickerDialog.show();
+        });
 
     }
 

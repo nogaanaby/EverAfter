@@ -41,7 +41,6 @@ public class EventsActivity extends ItemsListActivity {
         super.onCreate(savedInstanceState);
 
         loadItems();
-
     }
 
     @Override
