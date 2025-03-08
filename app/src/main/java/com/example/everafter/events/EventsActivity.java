@@ -71,18 +71,32 @@ public class EventsActivity extends ItemsListActivity {
                     int eventId = cursor.getInt(idIndex);
                     String eventName = cursor.getString(nameIndex);
 
-                    //get the date from the database it storing as text and we need to cast it to date
+                    // Retrieve the date stored as text and parse it.
                     String dateString = cursor.getString(dateIndex);
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                     try {
                         Date eventDate = sdf.parse(dateString);
                         String formattedDate = sdf.format(eventDate);
-                        eventName = eventName + " " + formattedDate + "";
+
+                        // Calculate the difference in days between the event date and today.
+                        Date currentDate = new Date();
+                        long diffInMillis = eventDate.getTime() - currentDate.getTime();
+                        long daysDiff = diffInMillis / (1000 * 60 * 60 * 24);
+                        String daysInfo;
+                        if (daysDiff > 0) {
+                            daysInfo = daysDiff + " days left";
+                        } else if (daysDiff < 0) {
+                            daysInfo = Math.abs(daysDiff) + " days passed";
+                        } else {
+                            daysInfo = "Today";
+                        }
+
+                        // Append the formatted date and days information to the event name.
+                        eventName = eventName + " (" + formattedDate + ") " + daysInfo;
                     } catch (ParseException e) {
                         e.printStackTrace();
                         eventName = eventName + " (unknown date)";
                     }
-
 
                     items.add(new Item(eventId, eventName));
                     Log.d("EventsActivity", "Loaded event: ID=" + eventId + ", Name=" + eventName);
@@ -90,13 +104,16 @@ public class EventsActivity extends ItemsListActivity {
 
                 if (items.isEmpty()) {
                     Toast.makeText(EventsActivity.this, "No events found.", Toast.LENGTH_SHORT).show();
-                    listViewItems.setAdapter(null); // Or set an empty adapter if needed.
+                    listViewItems.setAdapter(null);
+                    cursor.close();
                     return;
                 }
 
                 ItemsListAdapter adapter = new ItemsListAdapter(this, items, new ItemsListActivity.ActionListener() {
                     @Override
-                    public void onAddSubItem(Item item) {EventsActivity.this.onAddSubItem(item);}
+                    public void onAddSubItem(Item item) {
+                        EventsActivity.this.onAddSubItem(item);
+                    }
                     @Override
                     public void onEditItem(Item item) {
                         EventsActivity.this.onEditItem(item);
@@ -110,8 +127,8 @@ public class EventsActivity extends ItemsListActivity {
             }
             cursor.close();
         }
-
     }
+
 
     @Override
     protected void onAddNewItem() {
