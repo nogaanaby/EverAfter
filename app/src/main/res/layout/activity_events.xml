@@ -19,5 +19,5 @@
         android:id="@+id/buttonAddEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add New Event" />
+        android:text="@string/add_new_event" />
 </LinearLayout>

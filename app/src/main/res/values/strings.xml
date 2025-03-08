@@ -1,3 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Name -->
     <string name="app_name">EverAfter</string>
+
+    <!-- Buttons and Actions -->
+    <string name="add_new_event">Add New Event</string>
+    <string name="add_new_item">Add New Item</string>
+    <string name="add_new_subject_list">Add New Subject List</string>
+    <string name="edit_event">Edit Event</string>
+    <string name="delete_event">Delete Event</string>
+
+    <!-- Toast and Dialog Messages -->
+    <string name="no_events_found">No events found.</string>
+    <string name="event_deleted">Event deleted</string>
+    <string name="error_deleting_event">Error deleting event</string>
+    <string name="please_enter_event_details">Please enter both event name and date</string>
+    <string name="invalid_date_format">Invalid date format. Use yyyy-MM-dd</string>
+    <string name="event_updated_successfully">Event updated successfully</string>
+    <string name="error_updating_event">Error updating event</string>
+
+    <string name="subject_list_updated_successfully">Subject list updated successfully</string>
+    <string name="error_updating_subject_list">Error updating subject list</string>
+    <string name="please_enter_list_name">Please enter a list name</string>
+
+    <!-- Exit Confirmation -->
+    <string name="confirm_exit_title">Confirm Exit</string>
+    <string name="confirm_exit_message">You have unsaved changes. Are you sure you want to exit without saving?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- Login / Signup and Other Labels -->
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="item">Item</string>
+    <string name="edit_item">Edit Item</string>
+    <string name="delete_item">Delete Item</string>
+    <string name="add_sub_item">Add Sub Item</string>
+
+    <!-- Additional Labels -->
+    <string name="event_date_hint">yyyy-MM-dd</string>
+    <string name="event_date">Event Date</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="username_or_email">Username or Email</string>
+    <string name="event_name">Event Name</string>
+    <string name="save">Save</string>
+    <string name="hint_list_name">List Name</string>
+    <string name="hint_description">Description</string>
 </resources>

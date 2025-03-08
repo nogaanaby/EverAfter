@@ -14,7 +14,7 @@
             android:id="@+id/etEventName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Event Name"
+            android:hint="@string/event_name"
             android:minHeight="48dp"
             android:padding="8dp" />
 
@@ -22,7 +22,7 @@
             android:id="@+id/etEventDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Event Date (e.g., YYYY-MM-DD)"
+            android:hint="@string/event_date_hint"
             android:minHeight="48dp"
             android:padding="8dp"
             android:inputType="date" />
@@ -31,7 +31,7 @@
             android:id="@+id/buttonAddEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Event"
+            android:text="@string/add_new_event"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/colorGreen"/>
     </LinearLayout>

@@ -13,7 +13,7 @@
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="@string/username"
             android:minHeight="48dp"
             android:padding="8dp"/>
 
@@ -21,7 +21,7 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:padding="8dp"/>
@@ -30,7 +30,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:minHeight="48dp"
             android:padding="8dp"/>
@@ -40,7 +40,7 @@
             android:id="@+id/buttonRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SignUp"
+            android:text="@string/signup"
             android:minHeight="48dp"
             android:padding="8dp"/>
     </LinearLayout>

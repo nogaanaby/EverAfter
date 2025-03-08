@@ -14,7 +14,7 @@
             android:id="@+id/etListName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="List Name"
+            android:hint="@string/hint_list_name"
             android:minHeight="48dp"
             android:padding="8dp" />
 
@@ -22,7 +22,7 @@
             android:id="@+id/etDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Description"
+            android:hint="@string/hint_description"
             android:minHeight="48dp"
             android:padding="8dp" />
 
@@ -31,7 +31,7 @@
             android:id="@+id/buttonAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add List" />
+            android:text="@string/add_new_subject_list" />
 
     </LinearLayout>
 </ScrollView>

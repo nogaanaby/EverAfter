@@ -11,7 +11,7 @@
         android:id="@+id/editEventName"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Event Name"
+        android:hint="@string/event_name"
         android:padding="8dp"
         android:inputType="text" />
 
@@ -20,7 +20,7 @@
         android:id="@+id/editEventDate"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="yyyy-MM-dd"
+        android:hint="@string/event_date_hint"
         android:padding="8dp"
         android:inputType="date" />
 
@@ -30,6 +30,6 @@
         android:id="@+id/buttonSaveEditEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:text="@string/save" />
 
 </LinearLayout>
