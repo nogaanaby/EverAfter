@@ -32,7 +32,7 @@
             android:id="@+id/btnAddSubItem"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@android:drawable/ic_input_add"
+            android:src="@drawable/baseline_add_24"
             android:contentDescription="Add Sub-Item"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_marginEnd="8dp" />
@@ -42,7 +42,7 @@
             android:id="@+id/btnEditItem"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@android:drawable/ic_menu_edit"
+            android:src="@drawable/baseline_edit_24"
             android:contentDescription="Edit Item"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_marginEnd="8dp" />
@@ -52,7 +52,7 @@
             android:id="@+id/btnDeleteItem"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@android:drawable/ic_menu_delete"
+            android:src="@drawable/baseline_delete_24"
             android:contentDescription="Delete Item"
             android:background="?android:attr/selectableItemBackgroundBorderless" />
 

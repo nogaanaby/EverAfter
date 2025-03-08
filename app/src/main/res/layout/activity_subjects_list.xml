@@ -15,6 +15,7 @@
 
     <!-- Button to add a new subject list -->
     <Button
+        style="@style/CustomButtonStyle"
         android:id="@+id/buttonAddSubjectList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

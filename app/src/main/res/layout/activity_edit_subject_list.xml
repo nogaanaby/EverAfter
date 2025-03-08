@@ -21,6 +21,7 @@
         android:padding="8dp" />
 
     <Button
+        style="@style/CustomButtonStyle"
         android:id="@+id/buttonSaveEditList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -26,6 +26,7 @@
 
     <!-- Save Button -->
     <Button
+        style="@style/CustomButtonStyle"
         android:id="@+id/buttonSaveEditEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
